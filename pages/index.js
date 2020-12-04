@@ -22,10 +22,10 @@ Home.getInitialProps = async () => {
         "Authorization": `token ${process.env.GITHUB_TOKEN}`
     }
   };
-  const data ={
+  const querys ={
       query: `
           query{
-              xx1: repository(owner: "heru-nan", name: "atomic-scanner") {
+              xx1: repository(owner: "heru-nan", name: "portfolio") {
               openGraphImageUrl,
               description,
               name,
@@ -47,7 +47,7 @@ Home.getInitialProps = async () => {
   }
   
   try{
-    const res = await Axios.post('https://api.github.com/graphql',data, config);
+    const res = await Axios.post('https://api.github.com/graphql',querys, config);
 
     const objRes = res.data.data;
 
