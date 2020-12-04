@@ -1,0 +1,67 @@
+.contact_component{
+    margin-top: 120px;
+    margin-bottom: 180px;
+}
+
+.contact_component > form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 850px;
+    height: 100%;
+}
+
+.contact_component > h3{
+    text-align: center;
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 44px;
+    line-height: 60px;
+    /* or 136% */
+
+    /* Dark Color */
+    color: #21243D;
+    margin-bottom: 22px;
+}
+
+.contact_component form > label{
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 60px;
+}
+
+.contact_component * input, textarea {
+    font-family: Heebo;
+    font-style: normal;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border: 2px solid #e9eaea;
+    font-size: 14px;
+    border-radius: 5px;
+    outline: none;
+    transform: all 0.5s ease;
+}
+
+@media only screen and (max-width: 860px){
+    .contact_component{
+        max-width: 497px;
+        width: calc(100vw - 40px);
+        margin-bottom: 80px;
+        margin-top: 100px;
+    }
+    .contact_component > form{
+        max-width: inherit;
+        width: 100%;
+    }
+    .contact_component > h3{
+        margin-top: 0px;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,23 @@
+
+body{
+    background-color: #ffffff;
+    overflow-x: hidden;
+    font-family: "Heebo";
+}
+
+body > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li{
+    list-style: none;
+}
+ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
