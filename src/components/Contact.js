@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class Contact extends Component {
@@ -22,7 +22,7 @@ class Contact extends Component {
       e.preventDefault()
     
       this.setState({
-          buttonText: '...sending'
+          buttonText: '...Enviando'
       })
     
       let data = {
@@ -31,16 +31,20 @@ class Contact extends Component {
           message: this.state.message
       }
       
-    this.setState({sent: true}, this.resetForm());
-/*
-      axios.post('http://localhost:8080/contact', data)
+
+    axios.post('/api/contact', data)
       .then( res => {
-          this.setState({ sent: true }, this.resetForm());
+          if(!res.error) {
+            this.setState({ sent: true }, this.resetForm());
+          
+            alert("Gracias por contactarme. \n(Prometo, este callback no sera una alert)");
+          }else{
+              throw "Error de servidor";
+          }
       })
-      .catch( () => {
-        console.log('Message not sent')
+      .catch( (e) => {
+        console.log('Mensaje No Enviado');
       })
-*/
     }
 
     resetForm = () => {
