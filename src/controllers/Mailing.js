@@ -22,10 +22,12 @@ Mailing.sendEmail = data => {
   oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
   });
-  const accessToken = oauth2Client.getAccessToken();
 
+
+  const accessToken = oauth2Client.getAccessToken();
     const smtpTransport = nodemailer.createTransport({
       service: 'gmail',
+      requireTLS: false,
       auth: {
         type: 'OAuth2',
         user: SENDER_EMAIL_ADDRESS,
@@ -46,7 +48,10 @@ Mailing.sendEmail = data => {
     };
 
   smtpTransport.sendMail(mailOptions, (err, info) => {
-      if (err) return err;
+      if (err) {
+        console.log(err);
+        return err;
+      };
       return info;
     });
 };
