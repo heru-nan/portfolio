@@ -6,10 +6,10 @@ export default function Header(){
          <div>
              <h1>
              Hola, Soy Hernán,<br />
-             Javascript Developer
+             Software Developer
              </h1>
              <p>
-             Soy un Desarrollador Javascript centrado en front end con Tecnología React. Tengo pasión por la programación funcional,  Serverless Tecnologías tales como Next.js. Para mejorar mis habilidades me centro en el deep learning. Y la implementación y llevado a produccion de modelos basados en redes neuronales.
+             Soy un Desarrollador Javascript centrado en front end frameworks tal como React. Siento pasión por la programación funcional, y las Tecnologías Serverless tales como Next.js. Para mejorar mis habilidades me centro en el aprendizaje de las tecnologías de machine learning y cómo podrían desenvolverse en el browser.
              </p>
          </div>
          <CircleImg src="./heru.jpg" alt="image of presentation" />
