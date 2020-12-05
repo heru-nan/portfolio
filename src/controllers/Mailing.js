@@ -24,19 +24,19 @@ Mailing.sendEmail = data => {
   });
   const accessToken = oauth2Client.getAccessToken();
 
-  const smtpTransport = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      type: 'OAuth2',
-      user: SENDER_EMAIL_ADDRESS,
-      clientId: MAILING_SERVICE_CLIENT_ID,
-      clientSecret: MAILING_SERVICE_CLIENT_SECRET,
-      refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
-      accessToken,
-    },
-  });
-  const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
-
+    const smtpTransport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: SENDER_EMAIL_ADDRESS,
+        clientId: MAILING_SERVICE_CLIENT_ID,
+        clientSecret: MAILING_SERVICE_CLIENT_SECRET,
+        refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
+        accessToken,
+      },
+    });
+    const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
+ 
 
   const mailOptions = {
       from: SENDER_EMAIL_ADDRESS,
@@ -44,6 +44,7 @@ Mailing.sendEmail = data => {
       subject: "Contact Me",
       html: content,
     };
+
   smtpTransport.sendMail(mailOptions, (err, info) => {
       if (err) return err;
       return info;
