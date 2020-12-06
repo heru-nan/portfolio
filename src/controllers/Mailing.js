@@ -17,9 +17,8 @@ const oauth2Client = new OAuth2(
   OAUTH_PLAYGROUND
 );
 
-
 Mailing.sendEmail = async (data, res) => {
-  
+  console.log(oauth2Client);
 
   await oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
