@@ -1,27 +1,44 @@
-import Mailing from '../../src/controllers/Mailing';
+import nodemailer from "nodemailer"
+
+const emailPass = process.env.PASSWORD;
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: process.env.EMAIL,
+        pass: emailPass
+    }
+
+})
 
 export default async (req, res) => {
-    if(req.method === "POST"){
-        try{
-            await Mailing.sendEmail(req.body);
-            await res.status(200).json({message: "ok"});
-        }catch(e){
-            console.log(e);
-            res.status(500).json({
-                res: "Error",
-                error: true,
-            })
-        }
+    const { senderMail, name, content } = req.body;
+    const recipientMail = process.env.EMAIL;
+
+    if (senderMail === "" || name === "" || content === "" || recipientMail === "") {
+        res.status(403).send("")
+        return
     }
-    else res.status(500).json({
-        res: "Error, Ruta para request tipo POST solamente",
-        error: false
-    })
-    
+
+    const mailerRes = await mailer({ senderMail, name, text: content, recipientMail })
+    res.send(mailerRes)
+
 }
 
-export const config = {
-    api: {
-        externalResolver: true,
+const mailer = ({ senderMail, name, text, recipientMail }) => {
+    const from = name && senderMail ? `${name} <${senderMail}>` : `${name || senderMail}`
+    const message = {
+        from,
+        to: `${recipientMail}`,
+        subject: `New message from ${from}`,
+        text,
+        replyTo: from
     }
+
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(message, (error, info) =>
+            error ? reject(error) : resolve(info)
+        )
+    })
 }

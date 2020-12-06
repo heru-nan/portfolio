@@ -26,12 +26,11 @@ class Contact extends Component {
       })
     
       let data = {
+          senderMail: this.state.email,
           name: this.state.name,
-          email: this.state.email,
-          message: this.state.message
+          content: this.state.message
       }
       
-
     axios.post('/api/contact', data)
       .then( res => {
           if(res.status === 200) {
