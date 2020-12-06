@@ -1,12 +1,13 @@
 import Mailing from '../../src/controllers/Mailing';
 
-export default (req, res) => {
+export default async (req, res) => {
     if(req.method === "POST"){
         console.log(req.body);
-        console.log("request _!");
         try{
-            Mailing.sendEmail(req.body, res);
-            
+            await Mailing.sendEmail(req.body, res).catch(console.error).then(e => res.status(200).json({
+                error: 0,
+                res: "mensaje enviado correctamente",
+            }));
         }catch(e){
             res.json({
                 res: `Error al enviar email: ${e}`,

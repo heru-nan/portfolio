@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer';
 import {google} from 'googleapis';
 const { OAuth2 } = google.auth;
 const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
-
 const {
   MAILING_SERVICE_CLIENT_ID,
   MAILING_SERVICE_CLIENT_SECRET,
@@ -18,14 +17,17 @@ const oauth2Client = new OAuth2(
   OAUTH_PLAYGROUND
 );
 
-Mailing.sendEmail = (data, res) => {
-  oauth2Client.setCredentials({
+
+Mailing.sendEmail = async (data, res) => {
+  
+
+  await oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
   });
 
 
-  const accessToken = oauth2Client.getAccessToken();
-    const smtpTransport = nodemailer.createTransport({
+  const accessToken = await oauth2Client.getAccessToken();
+  const smtpTransport = nodemailer.createTransport({
       service: 'gmail',
       secure: false,
       auth: {
@@ -39,7 +41,7 @@ Mailing.sendEmail = (data, res) => {
     });
     const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
     
-    smtpTransport.verify(function(error, success) {
+  smtpTransport.verify(function(error, success) {
       if (error) {
         console.log("error transportador");
         console.log(error);
@@ -55,7 +57,7 @@ Mailing.sendEmail = (data, res) => {
       html: content,
     };
 
-  smtpTransport.sendMail(mailOptions, (err, info) => {
+  await smtpTransport.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log(err);
         res.status(500).json({
@@ -65,10 +67,7 @@ Mailing.sendEmail = (data, res) => {
       };
       console.log(info);
 
-      res.status(200).json({
-        res: `correcto: ${info}`,
-        error: 0
-      })
+      return info;
 
     });
 };
