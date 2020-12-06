@@ -38,7 +38,14 @@ Mailing.sendEmail = (data, res) => {
       },
     });
     const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
- 
+    
+    smtpTransport.verify(function(error, success) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
+    });
 
   const mailOptions = {
       from: SENDER_EMAIL_ADDRESS,
