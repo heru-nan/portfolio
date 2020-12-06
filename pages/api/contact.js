@@ -21,12 +21,10 @@ export default async (req, res) => {
     if(req.method === "POST"){
 
         const data = req.body;
-
-        await oauth2Client.setCredentials({
-            refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
-          });
+        oauth2Client.credentials = {refresh_token: MAILING_SERVICE_REFRESH_TOKEN};
           
         console.log(oauth2Client);
+
         const accessToken = await oauth2Client.getAccessToken();
 
         console.log(accessToken);
