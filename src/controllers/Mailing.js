@@ -28,7 +28,6 @@ Mailing.sendEmail = async (data, res) => {
   const accessToken = await oauth2Client.getAccessToken();
   const smtpTransport = nodemailer.createTransport({
       service: 'gmail',
-      secure: false,
       auth: {
         type: 'OAuth2',
         user: SENDER_EMAIL_ADDRESS,
@@ -37,6 +36,9 @@ Mailing.sendEmail = async (data, res) => {
         refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
         accessToken,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
     const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
     
