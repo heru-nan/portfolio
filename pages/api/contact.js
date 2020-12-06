@@ -1,10 +1,10 @@
 import Mailing from '../../src/controllers/Mailing';
 
-export default async (req, res) => {
+export default (req, res) => {
     if(req.method === "POST"){
         console.log(req.body);
         try{
-            await Mailing.sendEmail(req.body, res);
+            Mailing.sendEmail(req.body, res);
             res.status(200).json({
                 res: "Email enviado correctamente",
                 error: 0
