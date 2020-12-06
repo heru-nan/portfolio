@@ -34,7 +34,7 @@ class Contact extends Component {
 
     axios.post('/api/contact', data)
       .then( res => {
-          if(!res.error) {
+          if(res.status === 200) {
             this.setState({ sent: true }, this.resetForm());
           
             alert("Gracias por contactarme. \n(Prometo, este callback no sera una alert)");
@@ -43,6 +43,7 @@ class Contact extends Component {
           }
       })
       .catch( (e) => {
+        alert("Error servidor");
         console.log('Mensaje No Enviado');
       })
     }

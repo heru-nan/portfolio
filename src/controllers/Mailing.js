@@ -1,25 +1,6 @@
-import nodemailer from 'nodemailer';
-import {google} from 'googleapis';
-const { OAuth2 } = google.auth;
-const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
-const {
-  MAILING_SERVICE_CLIENT_ID,
-  MAILING_SERVICE_CLIENT_SECRET,
-  MAILING_SERVICE_REFRESH_TOKEN,
-  SENDER_EMAIL_ADDRESS,
-} = process.env;
 
-const Mailing = {};
-
-const oauth2Client = new OAuth2(
-  MAILING_SERVICE_CLIENT_ID,
-  MAILING_SERVICE_CLIENT_SECRET,
-  OAUTH_PLAYGROUND
-);
 
 Mailing.sendEmail = async (data, res) => {
-  console.log(oauth2Client);
-
   await oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
   });
@@ -60,6 +41,7 @@ Mailing.sendEmail = async (data, res) => {
 
   await smtpTransport.sendMail(mailOptions, (err, info) => {
       if (err) {
+        console.log("Error sendEmail: ");
         console.log(err);
         res.status(500).json({
           res: err,
