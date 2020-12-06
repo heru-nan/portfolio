@@ -55,7 +55,13 @@ Mailing.sendEmail = (data, res) => {
           error: 1
       })
       };
-      return info;
+      console.log(info);
+
+      res.status(200).json({
+        res: `correcto: ${info}`,
+        error: 0
+      })
+
     });
 };
 
