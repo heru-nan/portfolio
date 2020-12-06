@@ -18,7 +18,7 @@ const oauth2Client = new OAuth2(
   OAUTH_PLAYGROUND
 );
 
-Mailing.sendEmail = data => {
+Mailing.sendEmail = (data, res) => {
   oauth2Client.setCredentials({
     refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
   });
@@ -50,7 +50,10 @@ Mailing.sendEmail = data => {
   smtpTransport.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log(err);
-        return err;
+        res.status(500).json({
+          res: err,
+          error: 1
+      })
       };
       return info;
     });
