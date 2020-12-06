@@ -25,6 +25,7 @@ Mailing.sendEmail = data => {
 
   const smtpTransport = nodemailer.createTransport({
     service: 'gmail',
+    secure: false,
     auth: {
       type: 'OAuth2',
       user: SENDER_EMAIL_ADDRESS,
@@ -33,6 +34,10 @@ Mailing.sendEmail = data => {
       refreshToken: MAILING_SERVICE_REFRESH_TOKEN,
       accessToken,
     },
+    tls: {
+      rejectUnauthorized: false
+    },
+    debug: true
   });
   const content = `<h2>${data.name}</h2><h3>${data.email}</h3><p>${data.message}</p>`;
 
