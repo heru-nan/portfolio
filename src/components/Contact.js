@@ -10,7 +10,7 @@ class Contact extends Component {
         sent: false,
         buttonText: 'Enviar Mensaje',
         isRequired: "",
-        info: {error: true},
+        info: null,
     }
 
     requiredSubmit = () => {
