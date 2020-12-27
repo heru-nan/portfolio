@@ -10,12 +10,21 @@ class Contact extends Component {
         sent: false,
         buttonText: 'Enviar Mensaje',
         isRequired: "",
+        info: {error: true},
     }
 
     requiredSubmit = () => {
         console.log("required")
         if(this.state.email != '') return true;
         else return false;
+    }
+
+    handleServerResponse = (ok, msg) => {
+        if(ok){
+            this.setState({ sent: true, info: {error: false, msg: msg} }, this.resetForm());
+        }else{
+            this.setState({ sent: false, info: {error: true, msg: msg}})
+        }
     }
 
     formSubmit = (e) => {
@@ -30,21 +39,22 @@ class Contact extends Component {
           name: this.state.name,
           content: this.state.message
       }
-      
-    axios.post('/api/contact', data)
-      .then( res => {
-          if(res.status === 200) {
-            this.setState({ sent: true }, this.resetForm());
-          
-            alert("Gracias por contactarme. \n(Prometo, este callback no sera una alert)");
-          }else{
-              throw "Error de servidor";
-          }
+
+      axios({
+        method: 'POST',
+        url: 'https://formspree.io/f/xpzoojjp',
+        data
       })
-      .catch( (e) => {
-        alert("Error servidor");
-        console.log('Mensaje No Enviado');
-      })
+        .then((response) => {
+          this.handleServerResponse(
+            true,
+            'Thank you, your message has been submitted.'
+          )
+        })
+        .catch((error) => {
+          this.handleServerResponse(false, error.response.data.error)
+        })
+
     }
 
     resetForm = () => {
@@ -61,10 +71,10 @@ class Contact extends Component {
         return(
         <section className="contact_component">
             <h3>Contact Me</h3>
-            <form onSubmit={(e) => this.formSubmit(e)}>
+            <form onSubmit={this.formSubmit}>
 
                 <label htmlFor="message-email">Tu Email</label>
-                <input onChange={(e) => {this.setState({ email: e.target.value});}} name="email"  type="email" placeholder="your@email.com"  value={this.state.email} required/>
+                <input onChange={(e) => {this.setState({ email: e.target.value});}} name="_replyto"  type="email" placeholder="your@email.com"  value={this.state.email} required/>
 
                 <label htmlFor="message-name">Tu Nombre</label>
                 <input onChange={e => this.setState({ name: e.target.value})} name="name" type="text" placeholder="Tu Nombre" value={this.state.name}/>
@@ -74,6 +84,7 @@ class Contact extends Component {
                 
                 <div>
                     <button type="submit" >{ this.state.buttonText }</button>
+                    {this.state.info && this.state.error ?<button className="contact_reaction green" disabled>Mensaje Enviado</button> : <button disabled className="contact_reaction red">Mensaje No Enviado</button>}
                 </div>
             </form>
         </section>
