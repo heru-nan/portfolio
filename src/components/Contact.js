@@ -84,7 +84,7 @@ class Contact extends Component {
                 
                 <div>
                     <button type="submit" >{ this.state.buttonText }</button>
-                    {this.state.info && this.state.error ?<button className="contact_reaction green" disabled>Mensaje Enviado</button> : <button disabled className="contact_reaction red">Mensaje No Enviado</button>}
+                    {this.state.info && this.state.info.error ?<button className="contact_reaction green" disabled>Mensaje Enviado</button> : <button disabled className="contact_reaction red">Mensaje No Enviado</button>}
                 </div>
             </form>
         </section>
