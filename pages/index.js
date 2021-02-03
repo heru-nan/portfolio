@@ -25,7 +25,7 @@ Home.getInitialProps = async () => {
   const querys ={
       query: `
           query{
-              xx1: repository(owner: "heru-nan", name: "portfolio") {
+              xx1: repository(owner: "heru-nan", name: "full-stack-app") {
               openGraphImageUrl,
               description,
               name,
@@ -33,14 +33,14 @@ Home.getInitialProps = async () => {
               isArchived,
               url
               },
-              xx2: repository(owner: "heru-nan", name: "full-stack-app") {
-              openGraphImageUrl,
-              description,
-              name,
-              createdAt,
-              isArchived,
-              url
-              },
+              xx2: repository(owner: "heru-nan", name: "portfolio") {
+                openGraphImageUrl,
+                description,
+                name,
+                createdAt,
+                isArchived,
+                url
+                },
           }
         
   `

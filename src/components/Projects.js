@@ -49,13 +49,18 @@ const ProjectCard = ({data}) => {
     }
     let {url, name, description, createdAt, isArchived: state, openGraphImageUrl: src} = data;
     
+    
+
     return (<>
         <div className="projectCard_component">
             <img src={src?src:shiba} width="246" height="180" />
             <div>
                 <div>
                     <h2>{formatName(name)}</h2>
+                    <div>
+                    {name=="full-stack-app" && <a target="_blank" rel="noopener noreferrer" href="https://heru-demo.herokuapp.com/">Demo</a>}
                     <a href={url}>Github</a>
+                    </div>
                 </div>
                 <div>
                     <span>Fecha: {formatDate(createdAt)}</span>
