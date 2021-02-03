@@ -9,7 +9,7 @@ export default function Header(){
              Software Developer
              </h1>
              <p>
-             Soy un Desarrollador Javascript centrado en front end frameworks tal como React. Siento pasión por la programación funcional, y las Tecnologías Serverless tales como Next.js. Para mejorar mis habilidades me centro en el aprendizaje de las tecnologías de machine learning y cómo podrían desenvolverse en el browser.
+             Soy un Desarrollador de Software centrado en las Tecnologías Web, tales como los framework ReactJS y ExpressJS. Siento pasión por la programación funcional, y las nuevas Tecnologías. Por lo mismo en mi tiempo libre me aboco al Deep Learning, los modelos, y su implementación en un ambiente web. 
              </p>
          </div>
          <CircleImg src="./heru.jpg" alt="image of presentation" />
